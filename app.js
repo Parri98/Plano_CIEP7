@@ -148,7 +148,8 @@
       btn.innerHTML = `
         <div class="result-top"><span class="result-code">${escapeHtml(w.code)}</span><span class="result-venue">${escapeHtml(v.short)}</span></div>
         <div class="result-title">${escapeHtml(w.title)}</div>
-        <div class="result-authors">${escapeHtml(w.authors)}</div>`;
+        <div class="result-authors">${escapeHtml(w.authors)}</div>
+        <div class="result-schedule"><span aria-hidden="true">◷</span><strong>${escapeHtml(w.time || 'Horario pendiente')}</strong><span>·</span><span>${escapeHtml(w.day)}</span></div>`;
       btn.addEventListener('click', () => selectWork(w));
       frag.appendChild(btn);
     });

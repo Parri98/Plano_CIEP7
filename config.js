@@ -1,5 +1,5 @@
 window.CIEP7_CONFIG = {
-  version: '1.0.0',
+  version: '1.1.0',
   congress: {
     shortName: 'CIEP7',
     title: 'VII Congreso Internacional de Educación Patrimonial',

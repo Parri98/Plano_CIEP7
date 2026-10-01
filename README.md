@@ -1,6 +1,6 @@
 # CIEP7 · Mapa móvil de salas
 
-Versión 1.0 preparada para GitHub Pages y diseñada prioritariamente para móviles.
+Versión 1.1 preparada para GitHub Pages y diseñada prioritariamente para móviles.
 
 ## Publicar en GitHub Pages
 
@@ -24,3 +24,16 @@ La geolocalización funciona en GitHub Pages porque se sirve mediante HTTPS. El 
 La capa principal es **PNOA Máxima Actualidad (IGN/CNIG)** mediante WMTS. OpenStreetMap queda como capa alternativa.
 
 La aplicación y el buscador pueden quedar almacenados por la PWA, pero las teselas de la ortofoto se solicitan en línea para no ocupar almacenamiento innecesario en los teléfonos.
+
+## URL sin el nombre de usuario de GitHub
+
+La aplicación usa rutas relativas, por lo que funciona igualmente con un dominio personalizado.
+Para ocultar `parri98.github.io` de la barra de direcciones, configura un dominio o subdominio propio en **Settings → Pages → Custom domain** y crea en el proveedor DNS el registro que indique GitHub.
+
+Ejemplos posibles: `mapa.ciep7.es`, `ciep7.iaph.es` o `mapa.congresociep.es` (si la organización dispone del dominio y autoriza su uso).
+
+Si no se dispone de dominio propio, una alternativa es publicar el repositorio desde una organización de GitHub con un nombre institucional o del congreso. En ese caso seguirá apareciendo `github.io`, pero no el usuario personal.
+
+
+## Horarios
+La ficha y los resultados de búsqueda muestran la franja horaria oficial de la sesión de cada presentación, según el cronograma del CIEP7.

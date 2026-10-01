@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://www.ign.es">
   <link rel="preconnect" href="https://unpkg.com">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="anonymous">
-  <link rel="stylesheet" href="styles.css?v=1.0.0">
+  <link rel="stylesheet" href="styles.css?v=1.2.0">
 </head>
 <body>
   <div id="app" class="app">
@@ -37,7 +37,6 @@
           <input id="searchInput" type="search" inputmode="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Busca tu nombre, título o código…" aria-label="Buscar por nombre, título o código">
           <button id="clearSearch" class="clear-btn" type="button" aria-label="Borrar búsqueda">×</button>
         </div>
-        <div id="searchHint" class="search-hint">Ej.: “David Parrilla”, “P87” o palabras del título</div>
         <div id="results" class="results" hidden></div>
       </section>
 
@@ -67,7 +66,7 @@
         <div class="detail-grid">
           <div><span>Día</span><strong id="detailDay"></strong></div>
           <div><span>Sesión</span><strong id="detailSession"></strong></div>
-          <div id="timeBox"><span>Horario</span><strong id="detailTime"></strong></div>
+          <div id="timeBox" class="time-box"><span>Horario de sesión</span><strong id="detailTime"></strong></div>
           <div id="distanceBox" hidden><span>Distancia</span><strong id="detailDistance"></strong></div>
         </div>
         <div class="sheet-actions">
@@ -86,8 +85,8 @@
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="anonymous"></script>
-  <script src="config.js?v=1.0.0"></script>
-  <script src="data/programa.js?v=1.0.0"></script>
-  <script src="app.js?v=1.0.0"></script>
+  <script src="config.js?v=1.2.0"></script>
+  <script src="data/programa.js?v=1.2.0"></script>
+  <script src="app.js?v=1.2.0"></script>
 </body>
 </html>
