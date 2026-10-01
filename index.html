@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#3ea4e8">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="description" content="Mapa móvil del CIEP7 para localizar salas, ponencias y autores en el IAPH y la UNIA.">
+  <title>CIEP7 · Mapa de salas</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icon-192.png">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <link rel="preconnect" href="https://www.ign.es">
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css?v=1.0.0">
+</head>
+<body>
+  <div id="app" class="app">
+    <header class="topbar">
+      <img class="brand-logo" src="assets/logo-ciep7.png" alt="CIEP7">
+      <div class="brand-copy">
+        <strong>CIEP7</strong>
+        <span>Encuentra tu sala</span>
+      </div>
+      <button id="layersBtn" class="icon-btn" type="button" aria-label="Cambiar mapa" title="Cambiar mapa">▱</button>
+    </header>
+
+    <main class="map-shell">
+      <div id="map" aria-label="Mapa del congreso"></div>
+
+      <section class="search-panel" aria-label="Buscar presentación">
+        <div class="search-row">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input id="searchInput" type="search" inputmode="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Busca tu nombre, título o código…" aria-label="Buscar por nombre, título o código">
+          <button id="clearSearch" class="clear-btn" type="button" aria-label="Borrar búsqueda">×</button>
+        </div>
+        <div id="searchHint" class="search-hint">Ej.: “David Parrilla”, “P87” o palabras del título</div>
+        <div id="results" class="results" hidden></div>
+      </section>
+
+      <div class="map-actions" aria-label="Controles del mapa">
+        <button id="locateBtn" class="fab fab-location" type="button" aria-label="Activar mi ubicación">
+          <span aria-hidden="true">◎</span><span class="fab-label">Mi ubicación</span>
+        </button>
+        <button id="allVenuesBtn" class="fab fab-small" type="button" aria-label="Ver todas las salas" title="Ver todas las salas">⌂</button>
+      </div>
+
+      <div id="gpsStatus" class="status-chip" hidden></div>
+      <div id="offlineNotice" class="offline-notice" hidden>Sin conexión: el buscador funciona, pero la ortofoto necesita Internet.</div>
+
+      <section id="detailSheet" class="detail-sheet" aria-live="polite" aria-label="Detalle de la presentación" hidden>
+        <div class="sheet-handle" aria-hidden="true"></div>
+        <button id="closeSheet" class="sheet-close" type="button" aria-label="Cerrar detalle">×</button>
+        <div class="destination-row">
+          <span class="destination-dot" aria-hidden="true"></span>
+          <div>
+            <span class="destination-kicker">TU PRESENTACIÓN ES AQUÍ</span>
+            <h2 id="detailVenue"></h2>
+          </div>
+        </div>
+        <div class="work-code" id="detailCode"></div>
+        <h3 id="detailTitle"></h3>
+        <p id="detailAuthors" class="authors"></p>
+        <div class="detail-grid">
+          <div><span>Día</span><strong id="detailDay"></strong></div>
+          <div><span>Sesión</span><strong id="detailSession"></strong></div>
+          <div id="timeBox"><span>Horario</span><strong id="detailTime"></strong></div>
+          <div id="distanceBox" hidden><span>Distancia</span><strong id="detailDistance"></strong></div>
+        </div>
+        <div class="sheet-actions">
+          <button id="centerDestinationBtn" class="primary-btn" type="button">Centrar sala</button>
+          <button id="centerMeBtn" class="secondary-btn" type="button">Ver mi posición</button>
+        </div>
+      </section>
+
+      <div id="layerMenu" class="layer-menu" hidden>
+        <button type="button" data-layer="pnoa" class="layer-choice active"><span>▣</span><div><strong>Ortofoto PNOA</strong><small>IGN · Máxima actualidad</small></div></button>
+        <button type="button" data-layer="osm" class="layer-choice"><span>≡</span><div><strong>Mapa de calles</strong><small>OpenStreetMap</small></div></button>
+      </div>
+
+      <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="anonymous"></script>
+  <script src="config.js?v=1.0.0"></script>
+  <script src="data/programa.js?v=1.0.0"></script>
+  <script src="app.js?v=1.0.0"></script>
+</body>
+</html>
