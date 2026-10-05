@@ -59,7 +59,7 @@
 
   const venueIcon = (id, selected=false) => {
     const v = venues[id];
-    const extra = id === 'biblioteca' ? ' library' : '';
+    const extra = v.kind === 'meeting' ? ' meeting' : (id === 'biblioteca' ? ' library' : '');
     return L.divIcon({
       className: 'venue-marker',
       html: `<div class="venue-pin${selected ? ' selected' : ''}${extra}">${escapeHtml(v.short)}</div>`,

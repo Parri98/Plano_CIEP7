@@ -1,5 +1,5 @@
 window.CIEP7_CONFIG = {
-  version: '1.1.0',
+  version: '1.3.0',
   congress: {
     shortName: 'CIEP7',
     title: 'VII Congreso Internacional de Educación Patrimonial',
@@ -18,6 +18,8 @@ window.CIEP7_CONFIG = {
     a2:         { name: 'Edificio A · Aula/Sala A2 · IAPH',     short: 'A2',        lat: 37.39699938, lng: -6.00755353 },
     a_conf:     { name: 'Sala de conferencias · IAPH',          short: 'CONF.',     lat: 37.39697118, lng: -6.00757437 },
     b2:         { name: 'Edificio B · Aula/Sala B2 · IAPH',     short: 'B2',        lat: 37.39684856, lng: -6.00795694 },
-    biblioteca: { name: 'Biblioteca del IAPH',                  short: 'BIB.',      lat: 37.39732187, lng: -6.00777424 }
+    biblioteca: { name: 'Biblioteca del IAPH',                  short: 'BIB.',      lat: 37.39732187, lng: -6.00777424 },
+    visita_iaph:{ name: 'Punto de encuentro · Visita IAPH',        short: 'P·IAPH',     lat: 37.39739605, lng: -6.00784904, kind: 'meeting' },
+    visita_caac:{ name: 'Punto de encuentro · Visita CAAC',        short: 'P·CAAC',     lat: 37.39830220, lng: -6.00869571, kind: 'meeting' }
   }
 };

@@ -1,4 +1,4 @@
-const CACHE='ciep7-map-v1.2.0';
+const CACHE='ciep7-map-v1.3.0';
 const APP_SHELL=[
   './','./index.html','./styles.css','./app.js','./config.js','./data/programa.js',
   './manifest.webmanifest','./assets/logo-ciep7.png','./assets/icon-192.png','./assets/icon-512.png'

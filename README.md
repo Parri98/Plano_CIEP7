@@ -1,6 +1,6 @@
 # CIEP7 · Mapa móvil de salas
 
-Versión 1.1 preparada para GitHub Pages y diseñada prioritariamente para móviles.
+Versión 1.3 preparada para GitHub Pages y diseñada prioritariamente para móviles.
 
 ## Publicar en GitHub Pages
 
@@ -18,6 +18,16 @@ La geolocalización funciona en GitHub Pages porque se sirve mediante HTTPS. El 
 - `config.js`: coordenadas, nombres y abreviaturas de las salas.
 - `data/programa.js`: ponencias, autores, sesiones y salas.
 - `styles.css`: aspecto visual.
+
+
+## Ubicaciones v1.3
+
+La versión 1.3 incorpora ocho puntos georreferenciados. Además de las seis salas ya existentes, se añaden dos puntos de encuentro diferenciados visualmente en el mapa:
+
+- `P·IAPH` — Punto de encuentro · Visita IAPH (`37.39739605, -6.00784904`)
+- `P·CAAC` — Punto de encuentro · Visita CAAC (`37.39830220, -6.00869571`)
+
+Los puntos de encuentro se muestran en verde para distinguirlos de las salas de presentación.
 
 ## Cartografía
 
