@@ -49,6 +49,7 @@
   const venueMarkers = {};
   let selectedWork = null;
   let selectedVenueId = null;
+  let selectedHalo = null;
   let userMarker = null;
   let accuracyCircle = null;
   let routeLine = null;
@@ -57,34 +58,98 @@
   let lastPanFromGps = 0;
   let toastTimer = null;
 
-  const venueIcon = (id, selected=false) => {
+  const venueColor = (id) => {
     const v = venues[id];
-    const extra = v.kind === 'meeting' ? ' meeting' : (id === 'biblioteca' ? ' library' : '');
-    return L.divIcon({
-      className: 'venue-marker',
-      html: `<div class="venue-pin${selected ? ' selected' : ''}${extra}">${escapeHtml(v.short)}</div>`,
-      iconSize: selected ? [58, 40] : [52, 34],
-      iconAnchor: selected ? [29, 20] : [26, 17]
-    });
+    if(v.kind === 'meeting') return '#118c7e';
+    if(id === 'biblioteca') return '#586975';
+    return '#0878b9';
   };
 
-  Object.entries(venues).forEach(([id, v]) => {
-    const marker = L.marker([v.lat, v.lng], {
-      icon: venueIcon(id, false),
-      title: v.name,
-      keyboard: true,
-      riseOnHover: true
+  const defaultVenueRadius = () => map.getZoom() >= 20.5 ? 6.5 : 5;
+
+  function closeVenueTooltips(exceptId=null){
+    Object.entries(venueMarkers).forEach(([id, marker]) => {
+      if(id !== exceptId) marker.closeTooltip();
+    });
+  }
+
+  function refreshVenueMarkers(){
+    Object.entries(venueMarkers).forEach(([id, marker]) => {
+      const selected = id === selectedVenueId;
+      const dimmed = !!selectedVenueId && !selected;
+      marker.setRadius(selected ? 10 : defaultVenueRadius());
+      marker.setStyle({
+        color:'#fff',
+        weight:selected ? 3.5 : 2.25,
+        fillColor:selected ? '#f08b2f' : venueColor(id),
+        fillOpacity:selected ? 1 : (dimmed ? .66 : .96),
+        opacity:selected ? 1 : (dimmed ? .72 : 1)
+      });
+      if(selected) marker.bringToFront();
+    });
+  }
+
+  function updateSelectedHalo(){
+    if(selectedHalo){ map.removeLayer(selectedHalo); selectedHalo = null; }
+    if(!selectedVenueId) return;
+    const v = venues[selectedVenueId];
+    selectedHalo = L.circleMarker([v.lat,v.lng], {
+      radius:17,
+      color:'#f08b2f',
+      weight:3,
+      opacity:.46,
+      fill:false,
+      dashArray:'5 5',
+      interactive:false
     }).addTo(map);
-    marker.bindTooltip(v.name, {direction: 'top', offset: [0, -17], opacity: .96});
+    venueMarkers[selectedVenueId].bringToFront();
+  }
+
+  function focusVenue(id, zoom=20.5, accountForSheet=false){
+    const v = venues[id];
+    if(!v) return;
+    map.flyTo([v.lat, v.lng], Math.min(zoom, cfg.map.maxZoom), {duration:.48});
+    if(accountForSheet && window.innerWidth < 700){
+      map.once('moveend', () => {
+        if(selectedVenueId !== id || els.sheet.hidden) return;
+        const y = Math.min(145, Math.round(map.getSize().y * .16));
+        map.panBy([0, y], {animate:true, duration:.24});
+      });
+    }
+  }
+
+  Object.entries(venues).forEach(([id, v]) => {
+    const marker = L.circleMarker([v.lat, v.lng], {
+      radius:defaultVenueRadius(),
+      color:'#fff',
+      weight:2.25,
+      fillColor:venueColor(id),
+      fillOpacity:.96,
+      opacity:1,
+      title:v.name,
+      bubblingMouseEvents:false
+    }).addTo(map);
+    marker.bindTooltip(v.name, {
+      direction:'top',
+      offset:[0,-8],
+      opacity:.98,
+      className:'venue-name-tooltip'
+    });
     marker.on('click', () => {
-      map.flyTo([v.lat, v.lng], 20, {duration: .45});
-      showToast(v.name);
+      closeVenueTooltips(id);
+      marker.openTooltip();
+      if(map.getZoom() < 20.5) focusVenue(id, 20.5, false);
+      showToast(v.name, 1900);
     });
     venueMarkers[id] = marker;
   });
 
   const venueBounds = L.latLngBounds(Object.values(venues).map(v => [v.lat, v.lng]));
-  const showAllVenues = () => map.fitBounds(venueBounds.pad(.22), {paddingTopLeft:[20,95], paddingBottomRight:[20,130], maxZoom:19.5});
+  const showAllVenues = () => map.fitBounds(venueBounds.pad(.20), {
+    paddingTopLeft:[18,90],
+    paddingBottomRight:[18,95],
+    maxZoom:18.5
+  });
   showAllVenues();
 
   function showToast(message, ms=2200){
@@ -159,11 +224,11 @@
   function selectWork(work){
     selectedWork = work;
     selectedVenueId = work.venueId;
-    Object.entries(venueMarkers).forEach(([id, marker]) => marker.setIcon(venueIcon(id, id === selectedVenueId)));
     const v = venues[selectedVenueId];
-    venueMarkers[selectedVenueId].setZIndexOffset(1000);
-    map.flyTo([v.lat, v.lng], 20, {duration:.55});
-    venueMarkers[selectedVenueId].openTooltip();
+
+    refreshVenueMarkers();
+    updateSelectedHalo();
+    closeVenueTooltips(selectedVenueId);
 
     els.detailVenue.textContent = v.name;
     els.detailCode.textContent = work.code;
@@ -177,17 +242,18 @@
     els.results.hidden = true;
     els.panel.classList.remove('has-results');
     els.search.blur();
+
+    focusVenue(selectedVenueId, 20.5, true);
+    venueMarkers[selectedVenueId].openTooltip();
     updateRouteAndDistance();
   }
 
   function clearSelection(){
     selectedWork = null;
     selectedVenueId = null;
-    Object.entries(venueMarkers).forEach(([id, marker]) => {
-      marker.setIcon(venueIcon(id, false));
-      marker.setZIndexOffset(0);
-      marker.closeTooltip();
-    });
+    if(selectedHalo){ map.removeLayer(selectedHalo); selectedHalo = null; }
+    closeVenueTooltips();
+    refreshVenueMarkers();
     if(routeLine){ map.removeLayer(routeLine); routeLine = null; }
     els.sheet.hidden = true;
     els.distanceBox.hidden = true;
@@ -273,14 +339,15 @@
   els.all.addEventListener('click', () => { clearSelection(); showAllVenues(); });
   els.locate.addEventListener('click', () => startGps({center:true}));
   els.centerDestination.addEventListener('click', () => {
-    if(!selectedVenueId) return; const v=venues[selectedVenueId]; map.flyTo([v.lat,v.lng],20,{duration:.45});
+    if(!selectedVenueId) return; focusVenue(selectedVenueId, 21, true);
   });
   els.centerMe.addEventListener('click', () => {
-    if(userLatLng) map.flyTo(userLatLng,20,{duration:.45}); else startGps({center:true});
+    if(userLatLng) map.flyTo(userLatLng,20.5,{duration:.45}); else startGps({center:true});
   });
   els.layersBtn.addEventListener('click', () => { els.layerMenu.hidden = !els.layerMenu.hidden; });
   document.querySelectorAll('.layer-choice').forEach(btn => btn.addEventListener('click', () => setBaseLayer(btn.dataset.layer)));
-  map.on('click', () => { els.layerMenu.hidden = true; if(document.activeElement === els.search) els.search.blur(); });
+  map.on('click', () => { els.layerMenu.hidden = true; if(!selectedVenueId) closeVenueTooltips(); if(document.activeElement === els.search) els.search.blur(); });
+  map.on('zoomend', refreshVenueMarkers);
   window.addEventListener('online', updateConnectivity);
   window.addEventListener('offline', updateConnectivity);
   window.addEventListener('resize', () => setTimeout(() => map.invalidateSize(false), 100));

@@ -8,14 +8,14 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="description" content="Mapa móvil del CIEP7 para localizar salas, puntos de encuentro, ponencias y autores en el IAPH, la UNIA y el CAAC.">
-  <title>CIEP7 · Mapa de salas</title>
+  <title>CIEP7 · Mapa del congreso</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="assets/icon-192.png">
   <link rel="apple-touch-icon" href="assets/icon-192.png">
   <link rel="preconnect" href="https://www.ign.es">
   <link rel="preconnect" href="https://unpkg.com">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="anonymous">
-  <link rel="stylesheet" href="styles.css?v=1.3.0">
+  <link rel="stylesheet" href="styles.css?v=1.4.0">
 </head>
 <body>
   <div id="app" class="app">
@@ -70,7 +70,7 @@
           <div id="distanceBox" hidden><span>Distancia</span><strong id="detailDistance"></strong></div>
         </div>
         <div class="sheet-actions">
-          <button id="centerDestinationBtn" class="primary-btn" type="button">Centrar sala</button>
+          <button id="centerDestinationBtn" class="primary-btn" type="button">Centrar destino</button>
           <button id="centerMeBtn" class="secondary-btn" type="button">Ver mi posición</button>
         </div>
       </section>
@@ -85,8 +85,8 @@
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="anonymous"></script>
-  <script src="config.js?v=1.3.0"></script>
-  <script src="data/programa.js?v=1.3.0"></script>
-  <script src="app.js?v=1.3.0"></script>
+  <script src="config.js?v=1.4.0"></script>
+  <script src="data/programa.js?v=1.4.0"></script>
+  <script src="app.js?v=1.4.0"></script>
 </body>
 </html>

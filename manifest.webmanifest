@@ -1,7 +1,7 @@
 {
-  "name": "CIEP7 · Mapa de salas",
+  "name": "CIEP7 · Mapa del congreso",
   "short_name": "CIEP7 Mapa",
-  "description": "Mapa móvil para localizar salas, presentaciones y autores del CIEP7.",
+  "description": "Mapa móvil para localizar salas, puntos de encuentro, presentaciones y autores del CIEP7.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
