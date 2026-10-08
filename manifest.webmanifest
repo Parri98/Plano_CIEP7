@@ -1,7 +1,7 @@
 {
   "name": "CIEP7 · Mapa del congreso",
   "short_name": "CIEP7 Mapa",
-  "description": "Mapa móvil para localizar salas, puntos de encuentro, presentaciones y autores del CIEP7.",
+  "description": "Mapa móvil y programa del CIEP7 para localizar salas, puntos de encuentro, actividades, presentaciones y autores.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -9,7 +9,17 @@
   "background_color": "#f4f7f8",
   "theme_color": "#3ea4e8",
   "icons": [
-    {"src":"assets/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
-    {"src":"assets/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
   ]
 }

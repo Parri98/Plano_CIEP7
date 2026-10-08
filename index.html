@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://www.ign.es">
   <link rel="preconnect" href="https://unpkg.com">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="anonymous">
-  <link rel="stylesheet" href="styles.css?v=1.4.0">
+  <link rel="stylesheet" href="styles.css?v=1.5.0">
 </head>
 <body>
   <div id="app" class="app">
@@ -31,10 +31,10 @@
     <main class="map-shell">
       <div id="map" aria-label="Mapa del congreso"></div>
 
-      <section class="search-panel" aria-label="Buscar presentación">
+      <section class="search-panel" aria-label="Buscar actividad o presentación">
         <div class="search-row">
           <span class="search-icon" aria-hidden="true">⌕</span>
-          <input id="searchInput" type="search" inputmode="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Busca tu nombre, título o código…" aria-label="Buscar por nombre, título o código">
+          <input id="searchInput" type="search" inputmode="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Busca nombre, título, actividad o código…" aria-label="Buscar por nombre, título, actividad o código">
           <button id="clearSearch" class="clear-btn" type="button" aria-label="Borrar búsqueda">×</button>
         </div>
         <div id="results" class="results" hidden></div>
@@ -50,13 +50,13 @@
       <div id="gpsStatus" class="status-chip" hidden></div>
       <div id="offlineNotice" class="offline-notice" hidden>Sin conexión: el buscador funciona, pero la ortofoto necesita Internet.</div>
 
-      <section id="detailSheet" class="detail-sheet" aria-live="polite" aria-label="Detalle de la presentación" hidden>
+      <section id="detailSheet" class="detail-sheet" aria-live="polite" aria-label="Detalle de la actividad o presentación" hidden>
         <div class="sheet-handle" aria-hidden="true"></div>
         <button id="closeSheet" class="sheet-close" type="button" aria-label="Cerrar detalle">×</button>
         <div class="destination-row">
           <span class="destination-dot" aria-hidden="true"></span>
           <div>
-            <span class="destination-kicker">TU PRESENTACIÓN ES AQUÍ</span>
+            <span id="destinationKicker" class="destination-kicker">TU ACTIVIDAD ES AQUÍ</span>
             <h2 id="detailVenue"></h2>
           </div>
         </div>
@@ -85,8 +85,8 @@
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="anonymous"></script>
-  <script src="config.js?v=1.4.0"></script>
-  <script src="data/programa.js?v=1.4.0"></script>
-  <script src="app.js?v=1.4.0"></script>
+  <script src="config.js?v=1.5.0"></script>
+  <script src="data/programa.js?v=1.5.0"></script>
+  <script src="app.js?v=1.5.0"></script>
 </body>
 </html>

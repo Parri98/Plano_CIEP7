@@ -12,14 +12,15 @@
     sheet: $('detailSheet'), closeSheet: $('closeSheet'), detailVenue: $('detailVenue'), detailCode: $('detailCode'),
     detailTitle: $('detailTitle'), detailAuthors: $('detailAuthors'), detailDay: $('detailDay'), detailSession: $('detailSession'),
     detailTime: $('detailTime'), timeBox: $('timeBox'), distanceBox: $('distanceBox'), detailDistance: $('detailDistance'),
-    centerDestination: $('centerDestinationBtn'), centerMe: $('centerMeBtn'), layersBtn: $('layersBtn'), layerMenu: $('layerMenu'), toast: $('toast')
+    destinationKicker: $('destinationKicker'), centerDestination: $('centerDestinationBtn'), centerMe: $('centerMeBtn'),
+    layersBtn: $('layersBtn'), layerMenu: $('layerMenu'), toast: $('toast')
   };
 
   const normalize = (value='') => value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
   const escapeHtml = (s='') => s.replace(/[&<>"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
   const searchIndex = program.map((w, i) => ({
     i,
-    text: normalize(`${w.code} ${w.title} ${w.authors} ${venues[w.venueId]?.name || ''}`)
+    text: normalize(`${w.code} ${w.title} ${w.authors || ''} ${w.day || ''} ${w.session || ''} ${w.time || ''} ${venues[w.venueId]?.name || w.locationText || ''}`)
   }));
 
   const map = L.map('map', {
@@ -206,14 +207,16 @@
 
     const frag = document.createDocumentFragment();
     matches.forEach(w => {
-      const v = venues[w.venueId];
+      const v = w.venueId ? venues[w.venueId] : null;
+      const venueLabel = v?.short || w.locationShort || 'PROGRAMA';
+      const authorsHtml = w.authors ? `<div class="result-authors">${escapeHtml(w.authors)}</div>` : '';
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'result';
       btn.innerHTML = `
-        <div class="result-top"><span class="result-code">${escapeHtml(w.code)}</span><span class="result-venue">${escapeHtml(v.short)}</span></div>
+        <div class="result-top"><span class="result-code">${escapeHtml(w.code)}</span><span class="result-venue">${escapeHtml(venueLabel)}</span></div>
         <div class="result-title">${escapeHtml(w.title)}</div>
-        <div class="result-authors">${escapeHtml(w.authors)}</div>
+        ${authorsHtml}
         <div class="result-schedule"><span aria-hidden="true">◷</span><strong>${escapeHtml(w.time || 'Horario pendiente')}</strong><span>·</span><span>${escapeHtml(w.day)}</span></div>`;
       btn.addEventListener('click', () => selectWork(w));
       frag.appendChild(btn);
@@ -223,19 +226,22 @@
 
   function selectWork(work){
     selectedWork = work;
-    selectedVenueId = work.venueId;
-    const v = venues[selectedVenueId];
+    selectedVenueId = work.venueId || null;
+    const v = selectedVenueId ? venues[selectedVenueId] : null;
 
     refreshVenueMarkers();
     updateSelectedHalo();
     closeVenueTooltips(selectedVenueId);
 
-    els.detailVenue.textContent = v.name;
+    els.destinationKicker.textContent = v ? 'TU ACTIVIDAD ES AQUÍ' : 'INFORMACIÓN DE LA ACTIVIDAD';
+    els.detailVenue.textContent = v?.name || work.locationText || 'Ubicación indicada en el programa';
     els.detailCode.textContent = work.code;
     els.detailTitle.textContent = work.title;
-    els.detailAuthors.textContent = work.authors;
+    els.detailAuthors.textContent = work.authors || '';
+    els.detailAuthors.hidden = !work.authors;
     els.detailDay.textContent = work.day;
     els.detailSession.textContent = work.session;
+    els.centerDestination.hidden = !v;
     if(work.time){ els.detailTime.textContent = work.time; els.timeBox.hidden = false; }
     else { els.timeBox.hidden = true; }
     els.sheet.hidden = false;
@@ -243,8 +249,10 @@
     els.panel.classList.remove('has-results');
     els.search.blur();
 
-    focusVenue(selectedVenueId, 20.5, true);
-    venueMarkers[selectedVenueId].openTooltip();
+    if(v){
+      focusVenue(selectedVenueId, 20.5, true);
+      venueMarkers[selectedVenueId].openTooltip();
+    }
     updateRouteAndDistance();
   }
 

@@ -1,0 +1,36 @@
+CIEP7 · ACTUALIZACIÓN DEL PROGRAMA · GitHub v1.5
+====================================================
+
+Criterio de actualización
+-------------------------
+1. Se parte de la versión GitHub v1.4.
+2. Se incorporan y actualizan los datos del nuevo «Programa de comunicaciones CIEP 7 - 2026».
+3. NO se eliminan las entradas que ya estaban en la app y que no aparecen en el nuevo PDF.
+4. Se incorpora el programa general del congreso del documento A3.
+5. Corrección manual indicada por organización:
+   «Raíz y compás: el folklore y el flamenco como patrimonio vivo en la educación»
+   -> Sala de conferencias · Edificio A · IAPH.
+   La Biblioteca NO se utiliza para este taller en la aplicación.
+
+Resumen
+-------
+Comunicaciones/formatos previos: 165
+Registros del nuevo programa de comunicaciones: 152
+Nuevos códigos añadidos: 14
+Códigos previos conservados aunque no figuran en el PDF nuevo: 27
+Comunicaciones/formatos tras la unión: 179
+Actividades del programa general añadidas al buscador: 32
+Total de registros buscables: 211
+
+Nuevos códigos
+--------------
+F18, F19, F20, P30, P37, P109, P110, P119, P120, P121, P122, P123, P124, V42
+
+Códigos previos conservados
+---------------------------
+F2, F4, F6, F7, F8, F16, P3, P4, P22, P27, P36, P75, P84, P89, P90, V2, V4, V8, V10, V17, V18, V20, V23, V26, V35, V36, V40
+
+Nota
+----
+Las actividades externas o sin coordenadas del mapa se muestran en el buscador con su
+ubicación textual, pero no se les asigna una coordenada inventada.

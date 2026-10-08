@@ -1,6 +1,6 @@
 # CIEP7 · Mapa móvil del congreso
 
-Versión 1.4 preparada para GitHub Pages y diseñada prioritariamente para móviles.
+Versión 1.5 preparada para GitHub Pages y diseñada prioritariamente para móviles.
 
 ## Publicar en GitHub Pages
 
@@ -20,7 +20,7 @@ La geolocalización funciona en GitHub Pages porque se sirve mediante HTTPS. El 
 - `styles.css`: aspecto visual.
 
 
-## Ubicaciones v1.4
+## Ubicaciones
 
 La versión 1.4 mantiene los ocho puntos georreferenciados de la tabla definitiva. Además de las seis salas ya existentes, se añaden dos puntos de encuentro diferenciados visualmente en el mapa:
 
@@ -48,12 +48,22 @@ Si no se dispone de dominio propio, una alternativa es publicar el repositorio d
 ## Horarios
 La ficha y los resultados de búsqueda muestran la franja horaria oficial de la sesión de cada presentación, según el cronograma del CIEP7.
 
+## Actualización de programa v1.5
 
-## Mejora de visualización móvil v1.4
+- Se ha actualizado la base de datos con el nuevo **Programa de comunicaciones CIEP7 2026**.
+- Las comunicaciones que ya existían se conservan aunque no aparezcan en el documento nuevo.
+- Cuando una comunicación sí aparece en el documento nuevo, se actualizan su título, autoría, sesión, horario y ubicación con la información nueva.
+- Se incorporan las nuevas comunicaciones y fotoensayos/videocápsulas que aparecen en el programa actualizado.
+- Se ha añadido el **programa general** del congreso (mesas, visitas, talleres, conclusiones, clausura y postcongreso) para que también pueda localizarse desde el buscador.
+- Las actividades externas sin coordenadas del mapa siguen apareciendo en el buscador y muestran su dirección o punto de encuentro, pero no desplazan el mapa a una coordenada inventada.
+- **Corrección de organización:** el taller «Raíz y compás: el folklore y el flamenco como patrimonio vivo en la educación» se localiza en la **Sala de conferencias del Edificio A (IAPH)**. No se usa la Biblioteca para este taller, aunque figure así en el PDF recibido.
+- El buscador también indexa día, sesión y horario.
+
+## Visualización móvil
 
 - Los puntos del mapa se muestran como círculos pequeños sobre su coordenada exacta, sin abreviaturas permanentes que se solapen.
 - Al tocar un punto aparece temporalmente su nombre completo.
-- Al buscar una comunicación, solo el destino se destaca en naranja y con un halo; el resto de ubicaciones se atenúan.
+- Al buscar una comunicación o actividad con ubicación cartografiada, solo su destino se destaca en naranja y con un halo; el resto de ubicaciones se atenúan.
+- Las actividades externas o sin un punto cartografiado muestran la información del programa sin inventar coordenadas.
 - El mapa acerca automáticamente el destino para separar mejor ubicaciones muy próximas, como Aula A2 y Sala de conferencias.
-- El botón **Centrar destino** usa un zoom mayor y deja espacio para la ficha inferior en móviles.
 - No se desplaza ninguna coordenada: la geometría coincide con los puntos de QGIS.
